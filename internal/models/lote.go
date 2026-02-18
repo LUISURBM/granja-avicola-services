@@ -1,9 +1,15 @@
 package models
 
-type Galpon struct {
-	ID           uint    `gorm:"primaryKey" json:"id"`
-	Nombre       string  `gorm:"size:50;not null" json:"nombre"`
-	CapacidadMax int     `gorm:"not null" json:"capacidad_max"`
-	Ubicacion    string  `gorm:"size:100" json:"ubicacion"`
-	Lotes        []Lote  `gorm:"foreignKey:GalponID" json:"lotes,omitempty"`
+import "time"
+
+type Lote struct {
+	ID              uint      `gorm:"primaryKey" json:"id"`
+	GalponID        uint      `json:"galpon_id"`
+	Raza            string    `gorm:"size:50" json:"raza"`
+	CantidadInicial int       `gorm:"not null" json:"cantidad_inicial"`
+	FechaLlegada    time.Time `gorm:"type:date;not null" json:"fecha_llegada"`
+	Estado          string    `gorm:"type:enum('activo', 'finalizado');default:'activo'" json:"estado"`
+	// Relaciones para reportes completos
+	Mortalidades    []Mortalidad `gorm:"foreignKey:LoteID" json:"mortalidades,omitempty"`
+	Sanidad         []Sanidad    `gorm:"foreignKey:LoteID" json:"sanidad,omitempty"`
 }
