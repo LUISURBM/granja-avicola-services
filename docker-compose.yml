@@ -1,0 +1,32 @@
+services:
+  # BACKEND EN GO (GIN)
+  api-avicola:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: go_backend_avicola
+    restart: always
+    ports:
+      - "8080:80>80"
+    environment:
+      - DB_HOST=host.docker.internal
+      - DB_PORT=3306
+      - DB_USER=granja_admin
+      - DB_PASS=password
+      - DB_NAME=granjaavicola_db
+      - GIN_MODE=release
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # FRONTEND (NGX-ADMIN)
+  ngx-admin:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ngx_admin_front
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api-avicola
+
