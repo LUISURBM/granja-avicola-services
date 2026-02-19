@@ -10,6 +10,9 @@ type Mortalidad struct {
 	Causa    string    `gorm:"size:255" json:"causa"`
 	Fecha    time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"fecha"`
 }
+func (Mortalidad) TableName() string {
+	return "mortalidad" // El nombre exacto de tu tabla en MariaDB
+}
 
 // Tabla: sanidad
 type Sanidad struct {

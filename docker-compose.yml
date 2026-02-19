@@ -2,7 +2,7 @@ services:
   # BACKEND EN GO (GIN)
   api-avicola:
     build: 
-      context: ./backend
+      context: ./
       dockerfile: Dockerfile
     container_name: go_backend_avicola
     restart: always
@@ -18,15 +18,21 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
-  # FRONTEND (NGX-ADMIN)
-  ngx-admin:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: ngx_admin_front
-    restart: always
+  
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gestion_avicola
+      MYSQL_USER: admin_user
+      MYSQL_PASSWORD: admin_password
     ports:
-      - "80:80"
-    depends_on:
-      - api-avicola
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql    
 
+
+volumes:
+  mariadb_data:

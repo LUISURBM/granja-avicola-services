@@ -13,7 +13,7 @@ import (
 
 func main() {
 	// 1. Conexión a MariaDB (ajusta tus credenciales)
-	dsn := "root:tu_password@tcp(host.docker.internal:3306)/gestion_avicola?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "admin_user:admin_password@tcp(host.docker.internal:3306)/gestion_avicola?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Falló la conexión a la base de datos:", err)
