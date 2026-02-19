@@ -33,6 +33,16 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql    
 
+  # FRONTEND (NGX-ADMIN)
+  ngx-admin:
+    build:
+      context: ./ui
+    container_name: ngx_admin_front
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api-avicola
 
 volumes:
   mariadb_data:
