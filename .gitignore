@@ -1,3 +1,6 @@
 ui/node_modules/
 ui/node_modules/*
 ui/node_modules/**
+ui/.angular/
+ui/.angular/*
+ui/.angular/**
